@@ -194,7 +194,7 @@ msg-conv-config=laser_msgconv_config.txt
 #(1): PAYLOAD_DEEPSTREAM_MINIMAL - Deepstream schema payload minimal
 #(256): PAYLOAD_RESERVED - Reserved type
 #(257): PAYLOAD_CUSTOM   - Custom schema payload
-msg-conv-payload-type=0
+msg-conv-payload-type=1
 msg-broker-proto-lib=/opt/nvidia/deepstream/deepstream-4.0/lib/libnvds_kafka_proto.so
 #Provide your msg-broker-conn-str here
 msg-broker-conn-str=192.168.1.243;9092;topic03
