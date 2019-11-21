@@ -84,6 +84,7 @@ typedef struct
 
 typedef struct
 {
+  guint     conv_type;
   /** MsgConv settings */
   gchar*    config_file_path;
   guint     conv_payload_type;

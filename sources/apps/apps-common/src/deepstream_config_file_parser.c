@@ -111,6 +111,7 @@ GST_DEBUG_CATEGORY (APP_CFG_PARSER_CAT);
 #define CONFIG_GROUP_SINK_OFFSET_X "offset-x"
 #define CONFIG_GROUP_SINK_OFFSET_Y "offset-y"
 
+#define CONFIG_GROUP_SINK_MSG_CONV_TYPE "msg-conv-type"
 #define CONFIG_GROUP_SINK_MSG_CONV_CONFIG "msg-conv-config"
 #define CONFIG_GROUP_SINK_MSG_CONV_PAYLOAD_TYPE "msg-conv-payload-type"
 #define CONFIG_GROUP_SINK_MSG_CONV_MSG2P_LIB "msg-conv-msg2p-lib"
@@ -1188,6 +1189,11 @@ parse_sink (NvDsSinkSubBinConfig *config, GKeyFile *key_file, gchar *group, gcha
       config->encoder_config.gpu_id = config->render_config.gpu_id =
           g_key_file_get_integer (key_file, group,
           CONFIG_GPU_ID, &error);
+      CHECK_ERROR (error);
+    } else if (!g_strcmp0 (*key, CONFIG_GROUP_SINK_MSG_CONV_TYPE)) {
+      config->msg_conv_broker_config.conv_type =
+          g_key_file_get_integer (key_file, group,
+          CONFIG_GROUP_SINK_MSG_CONV_TYPE, &error);
       CHECK_ERROR (error);
     } else if (!g_strcmp0 (*key, CONFIG_GROUP_SINK_MSG_CONV_CONFIG)) {
       config->msg_conv_broker_config.config_file_path =

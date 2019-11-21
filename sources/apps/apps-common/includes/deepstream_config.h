@@ -58,6 +58,8 @@
 #define NVDS_ELEM_BBOXFILTER "nvbboxfilter"
 #define NVDS_ELEM_MSG_CONV "nvmsgconv"
 #define NVDS_ELEM_MSG_BROKER "nvmsgbroker"
+#define LSRDS_ELEM_MSG_CONV "lsrmsgconv"
+#define LSRDS_ELEM_MSG_BROKER "lsrmsgbroker"
 
 #define NVDS_ELEM_SINK_FAKESINK "fakesink"
 #define NVDS_ELEM_SINK_FILE "filesink"

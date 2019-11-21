@@ -215,17 +215,30 @@ create_msg_conv_broker_bin (NvDsSinkMsgConvBrokerConfig *config,
   
   /* Create msg converter to generate payload from buffer metadata */
   g_snprintf (elem_name, sizeof (elem_name), "sink_sub_bin_transform%d", uid);
-  bin->transform = gst_element_factory_make (NVDS_ELEM_MSG_CONV, elem_name);
+  if (config->conv_type == 0) {
+    bin->transform = gst_element_factory_make (NVDS_ELEM_MSG_CONV, elem_name);
+  } else if (config->conv_type == 1) {
+    bin->transform = gst_element_factory_make (LSRDS_ELEM_MSG_CONV, elem_name);
+  }
+  
   if (!bin->transform) {
     NVGSTDS_ERR_MSG_V ("Failed to create '%s'", elem_name);
     goto done;
   }
 
-  g_object_set (G_OBJECT(bin->transform), "config", config->config_file_path, 
-                "msg2p-lib", (config->conv_msg2p_lib ? config->conv_msg2p_lib : "null"),
-                "payload-type", config->conv_payload_type,
-                "comp-id", config->conv_comp_id,
-                NULL);
+  if (config->conv_type == 0) {
+    g_object_set (G_OBJECT(bin->transform), "config", config->config_file_path, 
+                  "msg2p-lib", (config->conv_msg2p_lib ? config->conv_msg2p_lib : "null"),
+                  "payload-type", config->conv_payload_type,
+                  "comp-id", config->conv_comp_id,
+                  NULL);
+  } else if (config->conv_type == 1) {
+    g_object_set (G_OBJECT(bin->transform), 
+                  "msg2p-lib", (config->conv_msg2p_lib ? config->conv_msg2p_lib : "null"),
+                  "payload-type", config->conv_payload_type,
+                  "comp-id", config->conv_comp_id,
+                  NULL);
+  }
 
   /* Create msg broker to send payload to server */
   g_snprintf (elem_name, sizeof (elem_name), "sink_sub_bin_sink%d", uid);
