@@ -82,20 +82,26 @@ generate_nvosdrectparams (LsrDsMsg2pCtx *ctx, NvOSD_RectParams rect_params)
   json_object_set_int_member (NvOSD_RectParamsObj, "top", rect_params.top);
   json_object_set_int_member (NvOSD_RectParamsObj, "width", rect_params.width);
   json_object_set_int_member (NvOSD_RectParamsObj, "height", rect_params.height);
-  //json_object_set_int_member (NvOSD_RectParamsObj, "border_width", rect_params.border_width);
-  //json_object_set_int_member (NvOSD_RectParamsObj, "has_bg_color", rect_params.has_bg_color);
-  //json_object_set_int_member (NvOSD_RectParamsObj, "has_color_info", rect_params.has_color_info);
-  //json_object_set_int_member (NvOSD_RectParamsObj, "color_id", rect_params.color_id);
+  if (ctx->payloadType == NVDS_PAYLOAD_DEEPSTREAM) {
+    json_object_set_int_member (NvOSD_RectParamsObj, "border_width", rect_params.border_width);
+    json_object_set_int_member (NvOSD_RectParamsObj, "has_bg_color", rect_params.has_bg_color);
+    json_object_set_int_member (NvOSD_RectParamsObj, "has_color_info", rect_params.has_color_info);
+    json_object_set_int_member (NvOSD_RectParamsObj, "color_id", rect_params.color_id);
+  }
 
-  /******************** border_color */
-  //NvOSD_ColorParamsObj = generate_nvosdcolorparams (ctx, rect_params.border_color);
-  //json_object_set_object_member (NvOSD_RectParamsObj, "border_color", NvOSD_ColorParamsObj);
-  /******************** border_color */
+  if (ctx->payloadType == NVDS_PAYLOAD_DEEPSTREAM) {
+    /******************** border_color */
+    NvOSD_ColorParamsObj = generate_nvosdcolorparams (ctx, rect_params.border_color);
+    json_object_set_object_member (NvOSD_RectParamsObj, "border_color", NvOSD_ColorParamsObj);
+    /******************** border_color */
+  }
 
-  /******************** bg_color */
-  //NvOSD_ColorParamsObj = generate_nvosdcolorparams (ctx, rect_params.bg_color);
-  //json_object_set_object_member (NvOSD_RectParamsObj, "bg_color", NvOSD_ColorParamsObj);
-  /******************** bg_color */
+  if (ctx->payloadType == NVDS_PAYLOAD_DEEPSTREAM) {
+    /******************** bg_color */
+    NvOSD_ColorParamsObj = generate_nvosdcolorparams (ctx, rect_params.bg_color);
+    json_object_set_object_member (NvOSD_RectParamsObj, "bg_color", NvOSD_ColorParamsObj);
+    /******************** bg_color */
+  }
 
   return NvOSD_RectParamsObj;
 }
@@ -253,8 +259,10 @@ generate_nvdsobjectmetalist_array (LsrDsMsg2pCtx *ctx, NvDsObjectMetaList *obj_m
 
     NvDsObjectMetaObj = json_object_new ();
 
-    //NvDsBaseMetaObj = generate_nvdsbasemeta (ctx, obj_meta->base_meta);
-    //json_object_set_object_member (NvDsObjectMetaObj, "base_meta", NvDsBaseMetaObj);
+    if (ctx->payloadType == NVDS_PAYLOAD_DEEPSTREAM) {
+      NvDsBaseMetaObj = generate_nvdsbasemeta (ctx, obj_meta->base_meta);
+      json_object_set_object_member (NvDsObjectMetaObj, "base_meta", NvDsBaseMetaObj);
+    }
 
     json_object_set_int_member (NvDsObjectMetaObj, "unique_component_id", obj_meta->unique_component_id);
     json_object_set_int_member (NvDsObjectMetaObj, "class_id", obj_meta->class_id);
@@ -266,17 +274,21 @@ generate_nvdsobjectmetalist_array (LsrDsMsg2pCtx *ctx, NvDsObjectMetaList *obj_m
     json_object_set_object_member (NvDsObjectMetaObj, "rect_params", NvOSD_RectParamsObj);
     /********** rect_params */
 
-    /********** text_params */
-    //NvOSD_TextParamsObj = generate_nvosdtextparams (ctx, obj_meta->text_params);
-    //json_object_set_object_member (NvDsObjectMetaObj, "text_params", NvOSD_TextParamsObj);
-    /********** text_params */
+    if (ctx->payloadType == NVDS_PAYLOAD_DEEPSTREAM) {
+      /********** text_params */
+      NvOSD_TextParamsObj = generate_nvosdtextparams (ctx, obj_meta->text_params);
+      json_object_set_object_member (NvDsObjectMetaObj, "text_params", NvOSD_TextParamsObj);
+      /********** text_params */
+    }
 
     json_object_set_string_member (NvDsObjectMetaObj, "obj_label", obj_meta->obj_label);
 
-    /********** classifier_meta_list */
-    //NvDsClassifierMetaListObj = generate_nvdsclassifiermetalist_array (ctx, obj_meta->classifier_meta_list);
-    //json_object_set_array_member (NvDsObjectMetaObj, "classifier_meta_list", NvDsClassifierMetaListObj);
-    /********** classifier_meta_list */
+    if (ctx->payloadType == NVDS_PAYLOAD_DEEPSTREAM) {
+      /********** classifier_meta_list */
+      NvDsClassifierMetaListObj = generate_nvdsclassifiermetalist_array (ctx, obj_meta->classifier_meta_list);
+      json_object_set_array_member (NvDsObjectMetaObj, "classifier_meta_list", NvDsClassifierMetaListObj);
+      /********** classifier_meta_list */
+    }
 
     /*************************** TODO */
     /** list of pointers of type NvDsUserMeta */
@@ -363,31 +375,43 @@ generate_nvdsframemeta (LsrDsMsg2pCtx *ctx, NvDsFrameMeta *frame_meta)
   // root object
   NvDsFrameMetaObj = json_object_new ();
   json_object_set_string_member (NvDsFrameMetaObj, "messageid", msgIdStr);
-  //json_object_set_string_member (NvDsFrameMetaObj, "dsversion", "4.0");
+  if (ctx->payloadType == NVDS_PAYLOAD_DEEPSTREAM) {
+    json_object_set_string_member (NvDsFrameMetaObj, "dsversion", "4.0");
+  }
 
-  //NvDsBaseMetaObj = generate_nvdsbasemeta (ctx, frame_meta->base_meta);
-  //json_object_set_object_member (NvDsFrameMetaObj, "base_meta", NvDsBaseMetaObj);
+  if (ctx->payloadType == NVDS_PAYLOAD_DEEPSTREAM) {
+    NvDsBaseMetaObj = generate_nvdsbasemeta (ctx, frame_meta->base_meta);
+    json_object_set_object_member (NvDsFrameMetaObj, "base_meta", NvDsBaseMetaObj);
+  }
 
-  //json_object_set_int_member (NvDsFrameMetaObj, "pad_index", frame_meta->pad_index);
-  //json_object_set_int_member (NvDsFrameMetaObj, "batch_id", frame_meta->batch_id);
-  //json_object_set_int_member (NvDsFrameMetaObj, "buf_pts", frame_meta->buf_pts);
-  //json_object_set_int_member (NvDsFrameMetaObj, "ntp_timestamp", frame_meta->ntp_timestamp);
+  if (ctx->payloadType == NVDS_PAYLOAD_DEEPSTREAM) {
+    json_object_set_int_member (NvDsFrameMetaObj, "pad_index", frame_meta->pad_index);
+    json_object_set_int_member (NvDsFrameMetaObj, "batch_id", frame_meta->batch_id);
+    json_object_set_int_member (NvDsFrameMetaObj, "buf_pts", frame_meta->buf_pts);
+    json_object_set_int_member (NvDsFrameMetaObj, "ntp_timestamp", frame_meta->ntp_timestamp);
+  }
   json_object_set_int_member (NvDsFrameMetaObj, "timestamp", std::time(0));
   json_object_set_int_member (NvDsFrameMetaObj, "frame_num", frame_meta->frame_num);
   json_object_set_int_member (NvDsFrameMetaObj, "source_id", frame_meta->source_id);
-  //json_object_set_int_member (NvDsFrameMetaObj, "num_surfaces_per_frame", frame_meta->num_surfaces_per_frame);
-  //json_object_set_int_member (NvDsFrameMetaObj, "source_frame_width", frame_meta->source_frame_width);
-  //json_object_set_int_member (NvDsFrameMetaObj, "source_frame_height", frame_meta->source_frame_height);
-  //json_object_set_int_member (NvDsFrameMetaObj, "surface_type", frame_meta->surface_type);
-  //json_object_set_int_member (NvDsFrameMetaObj, "surface_index", frame_meta->surface_index);
+  if (ctx->payloadType == NVDS_PAYLOAD_DEEPSTREAM) {
+    json_object_set_int_member (NvDsFrameMetaObj, "num_surfaces_per_frame", frame_meta->num_surfaces_per_frame);
+    json_object_set_int_member (NvDsFrameMetaObj, "source_frame_width", frame_meta->source_frame_width);
+    json_object_set_int_member (NvDsFrameMetaObj, "source_frame_height", frame_meta->source_frame_height);
+    json_object_set_int_member (NvDsFrameMetaObj, "surface_type", frame_meta->surface_type);
+    json_object_set_int_member (NvDsFrameMetaObj, "surface_index", frame_meta->surface_index);
+  }
   json_object_set_int_member (NvDsFrameMetaObj, "num_obj_meta", frame_meta->num_obj_meta);
-  //json_object_set_boolean_member (NvDsFrameMetaObj, "bInferDone", frame_meta->bInferDone);
+  if (ctx->payloadType == NVDS_PAYLOAD_DEEPSTREAM) {
+    json_object_set_boolean_member (NvDsFrameMetaObj, "bInferDone", frame_meta->bInferDone);
+  }
 
   NvDsObjectMetaListObj = generate_nvdsobjectmetalist_array (ctx, frame_meta->obj_meta_list);
   json_object_set_array_member (NvDsFrameMetaObj, "obj_meta_list", NvDsObjectMetaListObj);
 
-  //NvDisplayMetaListObj = generate_nvdisplaymetalist_array (ctx, frame_meta->display_meta_list);
-  //json_object_set_array_member (NvDsFrameMetaObj, "display_meta_list", NvDisplayMetaListObj);
+  if (ctx->payloadType == NVDS_PAYLOAD_DEEPSTREAM) {
+    NvDisplayMetaListObj = generate_nvdisplaymetalist_array (ctx, frame_meta->display_meta_list);
+    json_object_set_array_member (NvDsFrameMetaObj, "display_meta_list", NvDisplayMetaListObj);
+  }
 
   /*************************** TODO */
   /** list of pointers of type “NvDsUserMeta” in use for the given frame */
@@ -460,13 +484,15 @@ lsrds_msg2p_generate (LsrDsMsg2pCtx *ctx, NvDsFrameMeta *frame_meta, guint size)
 
   payload->payload = NULL;
 
-  message = generate_schema_message (ctx, frame_meta);
-  if (message) {
-    len = strlen (message);
-    // Remove '\0' character at the end of string and just copy the content.
-    payload->payload = g_memdup (message, len);
-    payload->payloadSize = len;
-    g_free (message);
+  if (ctx->payloadType != NVDS_PAYLOAD_CUSTOM) {
+    message = generate_schema_message (ctx, frame_meta);
+    if (message) {
+      len = strlen (message);
+      // Remove '\0' character at the end of string and just copy the content.
+      payload->payload = g_memdup (message, len);
+      payload->payloadSize = len;
+      g_free (message);
+    }
   }
 
   return payload;
