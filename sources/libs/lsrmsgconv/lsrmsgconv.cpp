@@ -434,12 +434,6 @@ generate_schema_message (LsrDsMsg2pCtx *ctx, NvDsFrameMeta *frame_meta)
 
   NvDsFrameMetaObj = generate_nvdsframemeta (ctx, frame_meta);
 
-  // root object
-//  rootObj = json_object_new ();
-//  json_object_set_string_member (rootObj, "messageid", msgIdStr);
-//  json_object_set_string_member (rootObj, "mdsversion", "1.0");
-//  json_object_set_string_member (rootObj, "@timestamp", meta->ts);
-
   rootNode = json_node_new (JSON_NODE_OBJECT);
   json_node_set_object (rootNode, NvDsFrameMetaObj);
 
