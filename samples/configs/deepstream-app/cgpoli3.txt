@@ -1,0 +1,299 @@
+# Copyright (c) 2019 NVIDIA Corporation.  All rights reserved.
+#
+# NVIDIA Corporation and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA Corporation is strictly prohibited.
+
+[application]
+enable-perf-measurement=1
+perf-measurement-interval-sec=5
+#gie-kitti-output-dir=streamscl
+
+[tiled-display]
+enable=1
+rows=3
+columns=3
+width=1280
+height=720
+gpu-id=0
+#(0): nvbuf-mem-default - Default memory allocated, specific to particular platform
+#(1): nvbuf-mem-cuda-pinned - Allocate Pinned/Host cuda memory applicable for Tesla
+#(2): nvbuf-mem-cuda-device - Allocate Device cuda memory applicable for Tesla
+#(3): nvbuf-mem-cuda-unified - Allocate Unified cuda memory applicable for Tesla
+#(4): nvbuf-mem-surface-array - Allocate Surface Array memory, applicable for Jetson
+nvbuf-memory-type=0
+
+[source0]
+enable=1
+#Type - 1=CameraV4L2 2=URI 3=MultiURI 4=RTSP
+type=4
+#uri=rtsp://admin:15BDF1c8@10.78.89.209:554/Streaming/Channels/101
+uri=rtsp://admin:11BDF1c8@192.168.1.245:554/ch01.264
+#num-sources=1
+#drop-frame-interval=2
+gpu-id=0
+# (0): memtype_device   - Memory type Device
+# (1): memtype_pinned   - Memory type Host Pinned
+# (2): memtype_unified  - Memory type Unified
+cudadec-memtype=0
+nvbuf-memory-type=0
+latency=0
+
+[source1]
+enable=1
+#Type - 1=CameraV4L2 2=URI 3=MultiURI 4=RTSP
+type=4
+#uri=rtsp://admin:15BDF1c8@10.78.89.210:554/Streaming/Channels/101
+uri=rtsp://live:11BDF1c8#@192.168.1.246/rtsp_tunnel?inst=2&h26x=4
+#num-sources=1
+#drop-frame-interval=2
+gpu-id=0
+# (0): memtype_device   - Memory type Device
+# (1): memtype_pinned   - Memory type Host Pinned
+# (2): memtype_unified  - Memory type Unified
+cudadec-memtype=0
+nvbuf-memory-type=0
+latency=0
+
+[source2]
+enable=1
+#Type - 1=CameraV4L2 2=URI 3=MultiURI 4=RTSP
+type=4
+#uri=rtsp://admin:15BDF1c8@10.78.89.211:554/Streaming/Channels/101
+uri=rtsp://admin:11BDF1c8@192.168.1.19:554/Network/Channels/101
+#num-sources=1
+#drop-frame-interval=2
+gpu-id=0
+# (0): memtype_device   - Memory type Device
+# (1): memtype_pinned   - Memory type Host Pinned
+# (2): memtype_unified  - Memory type Unified
+cudadec-memtype=0
+latency=0
+
+[source3]
+enable=1
+#Type - 1=CameraV4L2 2=URI 3=MultiURI 4=RTSP
+type=4
+#uri=rtsp://admin:15BDF1c8@10.78.89.212:554/Streaming/Channels/101
+uri=rtsp://admin:11BDF1c8@10.0.0.13:80/ch0_0.264
+#num-sources=1
+#drop-frame-interval=2
+gpu-id=0
+# (0): memtype_device   - Memory type Device
+# (1): memtype_pinned   - Memory type Host Pinned
+# (2): memtype_unified  - Memory type Unified
+cudadec-memtype=0
+latency=0
+
+[source4]
+enable=1
+#Type - 1=CameraV4L2 2=URI 3=MultiURI 4=RTSP
+type=4
+#uri=rtsp://admin:15BDF1c8@10.78.89.213:554/Streaming/Channels/101
+uri=rtsp://admin:11BDF1c8@10.0.0.14:80/ch0_0.264
+#num-sources=1
+#drop-frame-interval=2
+gpu-id=0
+# (0): memtype_device   - Memory type Device
+# (1): memtype_pinned   - Memory type Host Pinned
+# (2): memtype_unified  - Memory type Unified
+cudadec-memtype=0
+latency=0
+
+[source5]
+enable=1
+#Type - 1=CameraV4L2 2=URI 3=MultiURI 4=RTSP
+type=4
+#uri=rtsp://admin:15BDF1c8@10.78.89.214:554/Streaming/Channels/101
+uri=rtsp://admin:11BDF1c8@10.0.0.15:80/ch0_0.264
+#num-sources=1
+#drop-frame-interval=2
+gpu-id=0
+# (0): memtype_device   - Memory type Device
+# (1): memtype_pinned   - Memory type Host Pinned
+# (2): memtype_unified  - Memory type Unified
+cudadec-memtype=0
+nvbuf-memory-type=0
+latency=0
+
+[source6]
+enable=1
+#Type - 1=CameraV4L2 2=URI 3=MultiURI 4=RTSP
+type=4
+#uri=rtsp://admin:15BDF1c8@10.78.89.215:554/Streaming/Channels/101
+uri=rtsp://admin:11BDF1c8@10.0.0.16:80/ch0_0.264
+#num-sources=1
+#drop-frame-interval=2
+gpu-id=0
+# (0): memtype_device   - Memory type Device
+# (1): memtype_pinned   - Memory type Host Pinned
+# (2): memtype_unified  - Memory type Unified
+cudadec-memtype=0
+nvbuf-memory-type=0
+latency=0
+
+[source7]
+enable=1
+#Type - 1=CameraV4L2 2=URI 3=MultiURI 4=RTSP
+type=2
+#uri=rtsp://admin:15BDF1c8@10.78.89.216:554/Streaming/Channels/101
+uri=rtsp://admin:11BDF1c8@10.0.0.17:80/ch0_0.264
+#num-sources=1
+#drop-frame-interval=2
+gpu-id=0
+# (0): memtype_device   - Memory type Device
+# (1): memtype_pinned   - Memory type Host Pinned
+# (2): memtype_unified  - Memory type Unified
+cudadec-memtype=0
+nvbuf-memory-type=0
+latency=0
+
+[sink0]
+enable=0
+#Type - 1=FakeSink 2=EglSink 3=File
+type=2
+sync=0
+source-id=0
+gpu-id=0
+nvbuf-memory-type=0
+
+[sink1]
+enable=0
+type=3
+#1=mp4 2=mkv
+container=1
+#1=h264 2=h265
+codec=1
+sync=0
+#iframeinterval=10
+bitrate=2000000
+output-file=out.mp4
+source-id=0
+
+[sink2]
+enable=1
+#Type - 1=FakeSink 2=EglSink 3=File 4=RTSPStreaming
+type=4
+#1=h264 2=h265
+codec=1
+sync=1
+bitrate=4000000
+# set below properties in case of RTSPStreaming
+rtsp-port=8554
+udp-port=5400
+
+[sink3]
+enable=1
+#Type - 1=FakeSink 2=EglSink 3=File 4=UDPSink 5=nvoverlaysink 6=MsgConvBroker
+type=6
+msg-conv-type=1
+msg-conv-config=laser_msgconv_config.txt
+#(0): PAYLOAD_DEEPSTREAM - Deepstream schema payload
+#(1): PAYLOAD_DEEPSTREAM_MINIMAL - Deepstream schema payload minimal
+#(256): PAYLOAD_RESERVED - Reserved type
+#(257): PAYLOAD_CUSTOM   - Custom schema payload
+msg-conv-payload-type=0
+msg-broker-proto-lib=/opt/nvidia/deepstream/deepstream-4.0/lib/libnvds_kafka_proto.so
+#Provide your msg-broker-conn-str here
+msg-broker-conn-str=192.168.1.243;9092;topic02
+topic=topic02
+#Optional:
+#msg-broker-config=cfg_kafka.txt
+
+[osd]
+enable=1
+gpu-id=0
+border-width=1
+text-size=15
+text-color=1;1;1;1;
+text-bg-color=0.3;0.3;0.3;1
+font=Serif
+show-clock=0
+clock-x-offset=800
+clock-y-offset=820
+clock-text-size=12
+clock-color=1;0;0;0
+nvbuf-memory-type=0
+
+[streammux]
+gpu-id=0
+##Boolean property to inform muxer that sources are live
+live-source=1
+batch-size=8
+##time out in usec, to wait after the first buffer is available
+##to push the batch even if the complete batch is not formed
+batched-push-timeout=40000
+## Set muxer output width and height
+width=1920
+height=1080
+##Enable to maintain aspect ratio wrt source, and allow black borders, works
+##along with width, height properties
+enable-padding=0
+nvbuf-memory-type=0
+
+# config-file property is mandatory for any gie section.
+# Other properties are optional and if set will override the properties set in
+# the infer config file.
+[primary-gie]
+enable=1
+gpu-id=0
+model-engine-file=../../models/Primary_Detector/resnet10.caffemodel_b8_int8.engine
+batch-size=8
+#Required by the app for OSD, not a plugin property
+bbox-border-color0=1;0;0;1
+bbox-border-color1=0;1;1;1
+bbox-border-color2=0;0;1;1
+bbox-border-color3=0;1;0;1
+interval=0
+gie-unique-id=1
+nvbuf-memory-type=0
+config-file=config_infer_primary.txt
+
+[tracker]
+enable=0
+tracker-width=640
+tracker-height=368
+ll-lib-file=/opt/nvidia/deepstream/deepstream-4.0/lib/libnvds_mot_iou.so
+#ll-lib-file=/opt/nvidia/deepstream/deepstream-4.0/lib/libnvds_nvdcf.so
+#ll-lib-file=/opt/nvidia/deepstream/deepstream-4.0/lib/libnvds_mot_klt.so
+#ll-config-file required for DCF/IOU only
+ll-config-file=tracker_config.yml
+ll-config-file=iou_config.txt
+gpu-id=0
+#enable-batch-process applicable to DCF only
+enable-batch-process=1
+
+[secondary-gie0]
+enable=0
+model-engine-file=../../models/Secondary_VehicleTypes/resnet18.caffemodel_b16_int8.engine
+gpu-id=0
+batch-size=16
+gie-unique-id=4
+operate-on-gie-id=1
+operate-on-class-ids=0;
+config-file=config_infer_secondary_vehicletypes.txt
+
+[secondary-gie1]
+enable=0
+model-engine-file=../../models/Secondary_CarColor/resnet18.caffemodel_b16_int8.engine
+batch-size=16
+gpu-id=0
+gie-unique-id=5
+operate-on-gie-id=1
+operate-on-class-ids=0;
+config-file=config_infer_secondary_carcolor.txt
+
+[secondary-gie2]
+enable=0
+model-engine-file=../../models/Secondary_CarMake/resnet18.caffemodel_b16_int8.engine
+batch-size=16
+gpu-id=0
+gie-unique-id=6
+operate-on-gie-id=1
+operate-on-class-ids=0;
+config-file=config_infer_secondary_carmake.txt
+
+[tests]
+file-loop=0
